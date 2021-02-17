@@ -1,6 +1,6 @@
 <a href="https://www.hardwario.com/"><img src="https://www.hardwario.com/ci/assets/hw-logo.svg" width="200" alt="HARDWARIO Logo" align="right"></a>
 
-# PlatforIO platform for HARDWARIO TOWER - Industrial IoT Kit (EXPERIMENTAL)
+# PlatformIO platform for HARDWARIO TOWER - Industrial IoT Kit (EXPERIMENTAL)
 
 [![Twitter](https://img.shields.io/twitter/follow/hardwario_en.svg?style=social&label=Follow)](https://twitter.com/hardwario_en)
 
@@ -12,6 +12,7 @@ To work with our devices we recommend to use [twr-skeleton](https://github.com/h
 
 You can also visit [our documentation](https://tower.hardwario.com/en/latest/firmware/basic-overview/) to get started with firmware.
 
+The platform.io file should look like this:
 ```
 [env:debug]
 platform = hardwario-tower
