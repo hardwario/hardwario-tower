@@ -6,7 +6,7 @@
 
 To install this platform please use PlatformIO CLI
 
-``pio platform install https://github.com/SmejkalJakub/hardwario-tower.git``
+``pio platform install https://github.com/hardwario/hardwario-tower.git``
 
 To work with our devices we recommend to use [twr-skeleton](https://github.com/hardwario/twr-skeleton).
 
