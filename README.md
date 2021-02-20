@@ -8,6 +8,10 @@ To install this platform please use PlatformIO CLI
 
 ``pio platform install https://github.com/hardwario/hardwario-tower.git``
 
+You will also need to install our library twr-sdk:
+
+``pio lib --global install https://github.com/hardwario/twr-sdk.git``
+
 To work with our devices we recommend to use [twr-skeleton](https://github.com/hardwario/twr-skeleton).
 
 You can also visit [our documentation](https://tower.hardwario.com/en/latest/firmware/basic-overview/) to get started with firmware.
