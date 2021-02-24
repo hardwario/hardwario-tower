@@ -1,15 +1,15 @@
 {
     "name": "hardwario-tower",
     "title": "HARDWARIO Tower - Industrial IoT Kit",
-    "description": "My custom development platform",
+    "description": "Custom developement platform for the HARDWARIO TOWER IoT kit.",
     "homepage": "https://www.hardwario.com",
     "license": "Apache-2.0",
-    "keywords": ["keyword_1", "keyword_N"],
+    "keywords": ["IoT", "HARDWARIO", "Industrial", "Kit", "Simple", "Modular"],
     "repository": {
       "type": "git",
-      "url": "https://github.com/platformio/platform-myplatform.git"
+      "url": "https://github.com/hardwario/hardwario-tower.git"
     },
-    "version": "0.0.0",
+    "version": "0.0.4",
     "frameworks": {
       "stm32cube": {
         "script": "builder/frameworks/stm32cube.py",
