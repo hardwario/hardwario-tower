@@ -18,7 +18,7 @@ You can also visit [our documentation](https://tower.hardwario.com/en/latest/fir
 
 The platform.io file should look like this:
 ```
-[env:debug]
+[env:core]
 platform = hardwario-tower
 board = core_module
 framework = stm32cube
