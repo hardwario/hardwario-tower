@@ -16,7 +16,7 @@ To work with our devices we recommend to use [twr-skeleton](https://github.com/h
 
 You can also visit [our documentation](https://tower.hardwario.com/en/latest/firmware/basic-overview/) to get started with firmware.
 
-The platform.io file should look like this:
+The platformio.ini file should look like this:
 ```
 [env:core]
 platform = hardwario-tower
