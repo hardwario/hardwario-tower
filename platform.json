@@ -9,7 +9,7 @@
       "type": "git",
       "url": "https://github.com/hardwario/hardwario-tower.git"
     },
-    "version": "0.0.4",
+    "version": "0.0.6",
     "frameworks": {
       "stm32cube": {
         "script": "builder/frameworks/stm32cube.py",
@@ -53,26 +53,6 @@
         "optional": true,
         "owner": "platformio",
         "version": "~1.9.190708"
-      },
-      "tool-cmake": {
-        "optional": true,
-        "owner": "platformio",
-        "version": "~3.16.0"
-      },
-      "tool-dtc": {
-        "optional": true,
-        "owner": "platformio",
-        "version": "~1.4.7"
-      },
-      "tool-ninja": {
-        "optional": true,
-        "owner": "platformio",
-        "version": "^1.7.0"
-      },
-      "tool-gperf": {
-        "optional": true,
-        "owner": "platformio",
-        "version": "^3.0.0"
       },
       "tool-ldscripts-ststm32": {
         "optional": true,
