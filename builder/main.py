@@ -1,7 +1,3 @@
-"""
-    Build script for test.py
-    test-builder.py
-"""
 
 from os.path import join
 from SCons.Script import AlwaysBuild, Builder, Default, DefaultEnvironment, COMMAND_LINE_TARGETS
