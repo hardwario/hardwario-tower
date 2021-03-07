@@ -4,6 +4,10 @@
 
 [![Twitter](https://img.shields.io/twitter/follow/hardwario_en.svg?style=social&label=Follow)](https://twitter.com/hardwario_en)
 
+To start with firmware developement you should visit [our documentation](https://tower.hardwario.com/en/latest/firmware/basic-overview/).
+In the few sections you will install PlatformIO and build your first firmware with this platform.
+
+You can also visit [our documentation](https://tower.hardwario.com/en/latest/firmware/basic-overview/) to know how to get started with firmware.
 
 To install this platform with PlatformIO CLI please use
 
@@ -15,8 +19,6 @@ You can also install our library twr-sdk:
 
 To work with our devices we recommend to use [twr-skeleton](https://github.com/hardwario/twr-skeleton).
 You can just clone this project and start working with the firmware.
-
-You can also visit [our documentation](https://tower.hardwario.com/en/latest/firmware/basic-overview/) to know how to get started with firmware.
 
 The platformio.ini file should look like this:
 ```
