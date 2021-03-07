@@ -7,8 +7,6 @@
 To start with firmware developement you should visit [our documentation](https://tower.hardwario.com/en/latest/firmware/basic-overview/).
 In the few sections you will install PlatformIO and build your first firmware with this platform.
 
-You can also visit [our documentation](https://tower.hardwario.com/en/latest/firmware/basic-overview/) to know how to get started with firmware.
-
 To install this platform with PlatformIO CLI please use
 
 ``pio platform install https://github.com/hardwario/hardwario-tower.git``
