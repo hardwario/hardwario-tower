@@ -4,25 +4,27 @@
 
 [![Twitter](https://img.shields.io/twitter/follow/hardwario_en.svg?style=social&label=Follow)](https://twitter.com/hardwario_en)
 
-To install this platform please use PlatformIO CLI
+
+To install this platform with PlatformIO CLI please use
 
 ``pio platform install https://github.com/hardwario/hardwario-tower.git``
 
-You will also need to install our library twr-sdk:
+You can also install our library twr-sdk:
 
 ``pio lib --global install https://github.com/hardwario/twr-sdk.git``
 
 To work with our devices we recommend to use [twr-skeleton](https://github.com/hardwario/twr-skeleton).
+You can just clone this project and start working with the firmware.
 
-You can also visit [our documentation](https://tower.hardwario.com/en/latest/firmware/basic-overview/) to get started with firmware.
+You can also visit [our documentation](https://tower.hardwario.com/en/latest/firmware/basic-overview/) to know how to get started with firmware.
 
 The platformio.ini file should look like this:
 ```
-[env:core]
+[env:debug]
 platform = hardwario-tower
 board = core_module
 framework = stm32cube
-lib_deps = twr-sdk
+lib_deps = https://github.com/hardwario/twr-sdk.git
 monitor_speed = 115200
 monitor_filters = default, send_on_enter
 monitor_flags = --echo
