@@ -1,6 +1,6 @@
 <a href="https://www.hardwario.com/"><img src="https://www.hardwario.com/ci/assets/hw-logo.svg" width="200" alt="HARDWARIO Logo" align="right"></a>
 
-# [PlatformIO](https://platformio.org) platform for HARDWARIO TOWER - Industrial IoT Kit (EXPERIMENTAL)
+# [PlatformIO](https://platformio.org) platform for HARDWARIO TOWER - Industrial IoT Kit
 
 [![Twitter](https://img.shields.io/twitter/follow/hardwario_en.svg?style=social&label=Follow)](https://twitter.com/hardwario_en)
 
