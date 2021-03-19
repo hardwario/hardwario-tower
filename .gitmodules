@@ -1,0 +1,3 @@
+[submodule "examples/twr-skeleton"]
+	path = examples/twr-skeleton
+	url = https://github.com/hardwario/twr-skeleton.git
