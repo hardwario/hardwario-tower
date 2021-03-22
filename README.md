@@ -22,6 +22,9 @@ After you are familiar with the skeleton, you can update it to your needs.
 
 The platformio.ini file should look like this:
 ```
+[platformio]
+default_envs = debug
+
 [env]
 platform = hardwario-tower
 board = core_module
