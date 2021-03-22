@@ -1,6 +1,12 @@
 
-from os.path import join
+from os import makedirs
+from platform import system
+from os.path import join, isdir
 from SCons.Script import AlwaysBuild, Builder, Default, DefaultEnvironment, COMMAND_LINE_TARGETS
+
+# Builder script for HARDWARIO TOWER 
+# To for more info about builder visit https://github.com/topics/platformio-platform
+# Also you can visit https://github.com/platformio/platform-ststm32, this platform uses stm32cube framework
 
 env = DefaultEnvironment()
 platform = env.PioPlatform()
@@ -84,19 +90,54 @@ AlwaysBuild(target_size)
 #
 
 upload_source = target_firm
+upload_protocol = env.subst("$UPLOAD_PROTOCOL")
+upload_actions = []
 
-env.Replace(
-    UPLOADER="bcf",
-    UPLOADERFLAGS=[
-        "--device"
-    ],
-    UPLOADCMD="$UPLOADER flash $UPLOADERFLAGS $UPLOAD_PORT $SOURCE",
-)
+if(upload_protocol.startswith("serial")):
+    env.Replace(
+        UPLOADER="bcf",
+        UPLOADERFLAGS=[
+            "--device"
+        ],
+        UPLOADCMD="$UPLOADER flash $UPLOADERFLAGS $UPLOAD_PORT $SOURCE",
+    )
 
-upload_actions = [
-        env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
-        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
-    ]
+    upload_actions = [
+            env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
+            env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
+        ]
+
+elif(upload_protocol.startswith("jlink")):
+
+    def _jlink_cmd_script(env, source):
+        build_dir = env.subst("$BUILD_DIR")
+        if not isdir(build_dir):
+            makedirs(build_dir)
+        script_path = join(build_dir, "upload.jlink")
+        commands = [
+            "h",
+            "loadbin %s, %s" % (source, board.get(
+                "upload.offset_address", "0x08000000")),
+            "r",
+            "q"
+        ]
+        with open(script_path, "w") as fp:
+            fp.write("\n".join(commands))
+        return script_path
+
+    env.Replace(
+        __jlink_cmd_script=_jlink_cmd_script,
+        UPLOADER="JLink.exe" if system() == "Windows" else "JLinkExe",
+        UPLOADERFLAGS=[
+            "-device", board.get("debug", {}).get("jlink_device"),
+            "-speed", env.GetProjectOption("debug_speed", "4000"),
+            "-if", ("jtag" if upload_protocol == "jlink-jtag" else "swd"),
+            "-autoconnect", "1",
+            "-NoGui", "1"
+        ],
+        UPLOADCMD='$UPLOADER $UPLOADERFLAGS -CommanderScript "${__jlink_cmd_script(__env__, SOURCE)}"'
+    )
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
 upload = env.Alias("upload", upload_source, upload_actions)
 AlwaysBuild(upload)
