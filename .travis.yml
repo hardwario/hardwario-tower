@@ -1,0 +1,16 @@
+language: python
+env:
+  - PLATFORMIO_AUTH_TOKEN=${PLATFORMIO_TOKEN}
+install:
+  - pip install -U platformio
+script:
+  - if [ -n "${TRAVIS_TAG:-}" ]; then sed -r -i'' "s/\"1.0.0\"/\"${TRAVIS_TAG#v}\"/g" platform.json; fi
+  - cat platform.json
+  - pio package pack
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: 
+    - pio package publish
+  on:
+    tags: true
