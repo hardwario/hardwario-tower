@@ -1,7 +1,7 @@
 {
     "name": "hardwario-tower",
-    "title": "HARDWARIO Tower - Industrial IoT Kit",
-    "description": "Custom developement platform for the HARDWARIO TOWER IoT kit.",
+    "title": "HARDWARIO TOWER - Industrial IoT Kit",
+    "description": "IoT Kit TOWER by HARDWARIO is a versatile hardware platform focusing on the Internet of Things, wireless radio communication (Sub-GHz, NB-IoT, LoRaWAN, Sigfox), ultra-low power consumption, correct hardware design, and concise firmware SDK providing rock-solid stability for embedded applications. TOWER has a successful track record in the field of industrial IoT (IIoT) applications. The platform's main component is Core Module featuring microcontroller STM32L083CZ (ARM Cortex M0+) with 192 kB flash and 20 kB RAM, a Sub-GHz radio SPIRIT1, integrated security chip, digital temperature sensor, and a 3-axis MEMS accelerometer.",
     "homepage": "https://www.hardwario.com",
     "license": "Apache-2.0",
     "keywords": ["IoT", "HARDWARIO", "Industrial", "Kit", "Simple", "Modular"],
@@ -9,7 +9,7 @@
       "type": "git",
       "url": "https://github.com/hardwario/hardwario-tower.git"
     },
-    "version": "1.0.1",
+    "version": "1.0.0",
     "frameworks": {
       "stm32cube": {
         "script": "builder/frameworks/stm32cube.py",
@@ -17,6 +17,11 @@
         "homepage": "https://www.st.com/en/ecosystems/stm32cube.html",
         "title": "STM32Cube"
       }
+    },
+    "export": {
+      "exclude":[
+          ".*"
+      ]
     },
     "packages": {
       "toolchain-gccarmnoneeabi": {
