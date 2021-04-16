@@ -1,6 +1,23 @@
+/*
+HARDWARIO TOWER - Indrustrial IoT Kit
+
+Example firmware that shows all thy possibilities of serial monitor output
+
+For this example you will need just the Core Module https://shop.hardwario.com/core-module/
+
+For more information about firmware and HARDWARIO TOWER you can go to https://tower.hardwario.com/en/latest/firmware/basic-overview/
+*/
+
 #include <application.h>
 
+/*
+You will find this function in all of our firmwares
+In it you will initialize all the modules and set the event handlers for them
 
+This function will run once at the start
+
+Event Hadlers - functions that is called in case of some event on the module (Button press, Button hold, Temperature update, etc.)
+*/
 void application_init(void)
 {
     twr_log_init(TWR_LOG_LEVEL_DUMP, TWR_LOG_TIMESTAMP_ABS);

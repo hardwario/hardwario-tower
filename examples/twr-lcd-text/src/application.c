@@ -1,7 +1,32 @@
+/*
+HARDWARIO TOWER - Indrustrial IoT Kit
+
+Example firmware for basic usage of a LCD Module
+
+With this example you will get some words onto the LCD Module in different fonts
+
+For this example you will need:
+
+- LCD Module                    https://shop.hardwario.com/lcd-module-bg/
+- Core Module                   https://shop.hardwario.com/core-module/
+- Mini Battery Module           https://shop.hardwario.com/mini-battery-module/
+or you can buy LCD Display Kit  https://shop.hardwario.com/lcd-thermostat-kit/
+
+For more information about firmware and HARDWARIO TOWER you can go to https://tower.hardwario.com/en/latest/firmware/basic-overview/
+*/
+
 #include <application.h>
 
 #define BLACK true
 
+/*
+You will find this function in all of our firmwares
+In it you will initialize all the modules and set the event handlers for them
+
+This function will run once at the start
+
+Event Hadlers - functions that is called in case of some event on the module (Button press, Button hold, Temperature update, etc.)
+*/
 void application_init(void)
 {
     // Initialize LCD
