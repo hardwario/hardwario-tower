@@ -36,6 +36,7 @@ DATA- yellow (white)
 Here you should define instances for the modules and tags
 */
 static twr_ds18b20_t ds18b20;
+
 // ds18b20 sensors array
 static twr_ds18b20_sensor_t ds18b20_sensors[DS18B20_SENSOR_COUNT];
 

@@ -1,5 +1,4 @@
 #include <application.h>
-#include <twr.h>
 
 float temperature;
 
