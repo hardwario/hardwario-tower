@@ -1,6 +1,6 @@
 {
     "name": "hardwario-tower",
-    "title": "HARDWARIO TOWER - Industrial IoT Kit",
+    "title": "HARDWARIO Tower",
     "description": "IoT Kit TOWER by HARDWARIO is a versatile hardware platform focusing on the Internet of Things, wireless radio communication (Sub-GHz, NB-IoT, LoRaWAN, Sigfox), ultra-low power consumption, correct hardware design, and concise firmware SDK providing rock-solid stability for embedded applications. TOWER has a successful track record in the field of industrial IoT (IIoT) applications. The platform's main component is Core Module featuring microcontroller STM32L083CZ (ARM Cortex M0+) with 192 kB flash and 20 kB RAM, a Sub-GHz radio SPIRIT1, integrated security chip, digital temperature sensor, and a 3-axis MEMS accelerometer.",
     "homepage": "https://www.hardwario.com",
     "license": "Apache-2.0",
