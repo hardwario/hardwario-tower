@@ -236,7 +236,6 @@ env.Append(
         "-Wl,--gc-sections,--relax",
         "-mthumb",
         "-mcpu=%s" % board.get("build.cpu"),
-        "--specs=nano.specs",
         "--specs=nosys.specs",
     ],
 
