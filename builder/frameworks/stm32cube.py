@@ -27,6 +27,8 @@ import os
 import shutil
 import string
 import sys
+from subprocess import check_output
+from datetime import datetime
 
 from SCons.Script import DefaultEnvironment
 
@@ -46,7 +48,6 @@ FRAMEWORK_DIR = platform.get_package_dir("framework-stm32cube%s" % MCU[5:7])
 LDSCRIPTS_DIR = platform.get_package_dir("tool-ldscripts-ststm32")
 assert all(os.path.isdir(d) for d in (FRAMEWORK_DIR, LDSCRIPTS_DIR))
 
-
 class CustomLibBuilder(PlatformIOLibBuilder):
 
     PARSE_SRC_BY_H_NAME = False
@@ -61,7 +62,6 @@ class CustomLibBuilder(PlatformIOLibBuilder):
     @property
     def src_dir(self):
         return self.path
-
 
 def generate_ldscript(default_ldscript_path):
     ram = board.get("upload.maximum_ram_size", 0)
@@ -178,6 +178,19 @@ def build_usb_libs(usb_libs_root):
             manifest["name"] = "%s-%s" % (os.path.basename(usb_libs_root), device_class)
             build_custom_lib(os.path.join(usb_class_dir, device_class), manifest)
 
+project_dir = env.get('PROJECT_DIR')
+
+try:
+    version=check_output(['git', 'describe', '--tags', '--abbrev=0', '--dirty=m'], cwd=project_dir).decode().strip()
+except:
+    version='vdev'
+
+try:
+    git_version=check_output(['git', 'describe', '--abbrev=8', '--always', '--tags', '--dirty= (modified)'], cwd=project_dir).decode().strip()
+except:
+    git_version='?'
+
+build_date=datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
 
 env.Replace(AS="$CC", ASCOM="$ASPPCOM")
 
@@ -192,11 +205,14 @@ env.Append(
         "-mthumb",
         "-mcpu=%s" % board.get("build.cpu"),
         "-nostdlib",
+        f"-DVERSION=\\\"{version.replace(' ', '_')}\\\"",
+        f"-DGIT_VERSION=\\\"{git_version}\\\"",
+        f"-DBUILD_DATE=\\\"{build_date}\\\"",
     ],
 
     CPPDEFINES=[
         "USE_HAL_DRIVER",
-        ("F_CPU", "$BOARD_F_CPU")
+        ("F_CPU", "$BOARD_F_CPU"),
     ],
 
     CPPPATH=[
@@ -246,6 +262,8 @@ env.Append(
 
     LIBS=["c", "gcc", "m", "stdc++", "nosys"],
 )
+
+
 
 # copy CCFLAGS to ASFLAGS (-x assembler-with-cpp mode)
 env.Append(ASFLAGS=env.get("CCFLAGS", [])[:])
