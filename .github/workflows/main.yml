@@ -2,13 +2,10 @@ name: Release platform
 on:
   release:
     types: [published]
-
-  workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    environment: linux
     steps:
       - uses: actions/checkout@v2
       - name: Install Python dependencies and get GitHub Tag
@@ -21,3 +18,7 @@ jobs:
           cat platform.json
       - name: Pack the platform package
         run: pio package pack
+      - name: Publish the platform
+        env: 
+          PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_TOKEN }}
+        run: pio package publish
