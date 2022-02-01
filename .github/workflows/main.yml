@@ -15,8 +15,8 @@ jobs:
         run: pip install -U platformio
       - name: Change version number
         run: |
-          echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" | tee -a $GITHUB_ENV
-          sed -r -i'' "s/\"1.0.0\"/\"${GITHUB_TAG#v}\"/g" platform.json;
+          echo "GITHUB_TAG=${GITHUB_REF#refs/*/v}" | tee -a $GITHUB_ENV
+          sed -r -i'' "s/\"version_number\"/\"${GITHUB_TAG}\"/g" platform.json
           cat platform.json
       - name: Pack the platform package
         run: pio package pack
