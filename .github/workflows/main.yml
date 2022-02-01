@@ -11,12 +11,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install Python dependencies
-        run: pip install -U platformio
+      - name: Install Python dependencies and get GitHub Tag
+        run: | 
+          pip install -U platformio
+          echo "GITHUB_TAG=${GITHUB_REF#refs/*/v}" | tee -a $GITHUB_ENV
       - name: Change version number
         run: |
-          echo "GITHUB_TAG=${GITHUB_REF#refs/*/v}" | tee -a $GITHUB_ENV
-          sed -r -i'' "s/\"version_number\"/\"${GITHUB_TAG}\"/g" platform.json
+          sed -r -i'' "s/\"version_number\"/\"${{ env.GITHUB_TAG }}\"/g" platform.json
           cat platform.json
       - name: Pack the platform package
         run: pio package pack
