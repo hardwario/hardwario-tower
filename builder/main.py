@@ -4,9 +4,23 @@ from platform import system
 from os.path import join, isdir
 from SCons.Script import AlwaysBuild, Builder, Default, DefaultEnvironment, COMMAND_LINE_TARGETS
 
+from platformio.util import get_serial_ports
+
 # Builder script for HARDWARIO TOWER 
 # To for more info about builder visit https://github.com/topics/platformio-platform
 # Also you can visit https://github.com/platformio/platform-ststm32, this platform uses stm32cube framework
+
+def BeforeUpload(target, source, env):
+    before_ports = get_serial_ports()
+
+    print("SELECT UPLOAD PORT")
+    for i, port in enumerate(before_ports):
+        print(f"{i}: {port['port']}")
+    
+    port = int(input(""))
+    print("SELECTED PORT: " + before_ports[port]['port'])
+
+    env.Replace(UPLOAD_PORT=before_ports[port]['port'])
 
 env = DefaultEnvironment()
 platform = env.PioPlatform()
@@ -94,6 +108,12 @@ upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 upload_actions = []
 
 if(upload_protocol.startswith("serial")):
+
+    upload_actions = [
+        env.VerboseAction(BeforeUpload, "Looking for upload port..."),
+        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
+    ]
+
     env.Replace(
         UPLOADER="bcf",
         UPLOADERFLAGS=[
@@ -101,11 +121,6 @@ if(upload_protocol.startswith("serial")):
         ],
         UPLOADCMD="$UPLOADER flash $UPLOADERFLAGS $UPLOAD_PORT $SOURCE",
     )
-
-    upload_actions = [
-            env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
-            env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
-        ]
 
 elif(upload_protocol.startswith("jlink")):
 
