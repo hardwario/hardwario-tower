@@ -205,7 +205,7 @@ env.Append(
         "-mthumb",
         "-mcpu=%s" % board.get("build.cpu"),
         "-nostdlib",
-        f"-DVERSION=\\\"{version.replace(' ', '_')}\\\"",
+        f"-DVERSION=\\\"{version}\\\"",
         f"-DGIT_VERSION=\\\"{git_version}\\\"",
         f"-DBUILD_DATE=\\\"{build_date}\\\"",
     ],
@@ -262,8 +262,6 @@ env.Append(
 
     LIBS=["c", "gcc", "m", "stdc++", "nosys"],
 )
-
-
 
 # copy CCFLAGS to ASFLAGS (-x assembler-with-cpp mode)
 env.Append(ASFLAGS=env.get("CCFLAGS", [])[:])
