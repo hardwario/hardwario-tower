@@ -1,5 +1,5 @@
 
-from os import makedirs
+import click
 from platform import system
 from os.path import join, isdir
 from SCons.Script import AlwaysBuild, Builder, Default, DefaultEnvironment, COMMAND_LINE_TARGETS
@@ -11,16 +11,30 @@ from platformio.util import get_serial_ports
 # Also you can visit https://github.com/platformio/platform-ststm32, this platform uses stm32cube framework
 
 def BeforeUpload(target, source, env):
-    before_ports = get_serial_ports()
-
-    print("SELECT UPLOAD PORT")
-    for i, port in enumerate(before_ports):
-        print(f"{i}: {port['port']}")
-    
-    port = int(input(""))
-    print("SELECTED PORT: " + before_ports[port]['port'])
-
-    env.Replace(UPLOAD_PORT=before_ports[port]['port'])
+    ports = get_serial_ports()
+        
+    if(len(ports) == 1):
+        env.Replace(UPLOAD_PORT=ports[0]['port'])
+    else:
+        click.secho("Please select upload port (line number):", fg='yellow')
+        for i, port in enumerate(ports):
+            click.secho(f"{i}: {port['port']}", fg='white')
+        
+        selected_port = input("")      
+        
+        if(not selected_port.isnumeric()):
+            for i, port in enumerate(ports):
+                if(port['port'] == selected_port):
+                    selected_port = i
+        else:
+            selected_port = int(selected_port)
+                                           
+        try:
+            click.secho("SELECTED PORT: " + ports[selected_port]['port'], fg='green')
+            env.Replace(UPLOAD_PORT=ports[selected_port]['port'])
+        except:
+            click.secho("WRONG PORT SELECTED! Please select line number or the port name", fg='red')
+            raise Exception("Upload port error")
 
 env = DefaultEnvironment()
 platform = env.PioPlatform()
@@ -44,8 +58,6 @@ env.Replace(
     SIZEDATAREGEXP=r"^(?:\.data|\.bss|\.noinit)\s+(\d+).*",
     SIZECHECKCMD="$SIZETOOL -A -d $SOURCES",
     SIZEPRINTCMD='$SIZETOOL -B -d $SOURCES',
-
-    #LIBS=["twr-sdk"],
     
     PROGNAME="firmware",
     PROGSUFFIX=".elf"
@@ -78,6 +90,9 @@ env.Append(
         )
     )
 )
+
+project_config = env.GetProjectConfig()
+project_config.set('env:debug-jlink', 'debug_svd_path', env['PROJECT_CORE_DIR'] + "\platforms\hardwario-tower\stm32l0x3.svd")
 
 #
 # Target: Build executable and linkable firmware
@@ -123,7 +138,7 @@ if(upload_protocol.startswith("serial")):
     )
 
 elif(upload_protocol.startswith("jlink")):
-
+       
     def _jlink_cmd_script(env, source):
         build_dir = env.subst("$BUILD_DIR")
         if not isdir(build_dir):
